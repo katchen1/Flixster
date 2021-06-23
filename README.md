@@ -30,7 +30,8 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='walkthrough-portrait.gif' title='Video Walkthrough (Portrait)' width='' alt='Video Walkthrough (Portrait)' />
+<img src='walkthrough-landscape.gif' title='Video Walkthrough (Landscape)' width='' alt='Video Walkthrough (Landscape)' />
 
 GIF created with [Kap](https://getkap.co/).
 
