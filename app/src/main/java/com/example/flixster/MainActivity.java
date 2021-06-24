@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.adapters.MovieAdapter;
@@ -20,10 +19,7 @@ import okhttp3.Headers;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String NOW_PLAYING_URL =
-            "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
-    public static final String TAG = "MainActivity"; // for printing to the log
-
+    public static final String TAG = "MainActivity"; // for printing to logcat
     List<Movie> movies;
 
     @Override
@@ -48,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Make a GET request to retrieve the now playing movies from the online database
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
+        String key = getString(R.string.moviedb_api_key);
+        String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + key;
+        client.get(url, new JsonHttpResponseHandler() {
             /* Handles what happens when the request succeeds (error code 200). */
             @Override
             public void onSuccess(int i, Headers headers, JSON json) {
@@ -57,12 +55,10 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     // Populate the movies member variable with the retrieved results
                     JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "Results: " + results.toString());
                     movies.addAll(Movie.fromJsonArray(results));
 
                     // Notify the adapter that the dataset has changed
                     movieAdapter.notifyDataSetChanged();
-                    Log.i(TAG, "Movies: " + movies.size());
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit json exception", e);
                 }
