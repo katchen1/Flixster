@@ -52,6 +52,10 @@ public class Movie {
         return movies;
     }
 
+    public boolean equals(Object other) {
+        return id.equals(((Movie) other).getId());
+    }
+
     /* Getter for the movies' poster path. */
     public String getPosterPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);

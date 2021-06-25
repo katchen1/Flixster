@@ -36,7 +36,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("MovieAdapter", "onCreateViewHolder");
         ItemMovieBinding binding = ItemMovieBinding.inflate(LayoutInflater.from(context));
         return new ViewHolder(binding);
     }
@@ -44,7 +43,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     /* Populates data into the item through the holder. */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d("MovieAdapter", "onBindViewHolder " + position);
         Movie movie = movies.get(position); // get movie at the passed in position
         holder.bind(movie); // bind movie data into the ViewHolder
     }
@@ -61,6 +59,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
+        TextView tvVoteAverage;
+        TextView tvVoteInfo;
 
         /* Constructor for the ViewHolder class. */
         public ViewHolder(ItemMovieBinding binding) {
@@ -68,6 +68,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvTitle = binding.tvTitle;
             tvOverview = binding.tvOverview;
             ivPoster = binding.ivPoster;
+            tvVoteAverage = binding.tvVoteAverage;
+            tvVoteInfo = binding.tvVoteInfo;
             itemView.setOnClickListener(this);
         }
 
@@ -75,6 +77,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         public void bind(Movie movie) {
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
+            tvVoteAverage.setText(movie.getVoteAverage().toString());
+            tvVoteInfo.setText("/10 (" + movie.getVoteCount() + ")");
 
             // If device is in landscape, display backdrop image, otherwise display poster image
             boolean landscape = context.getResources()

@@ -31,13 +31,42 @@
         android:textColor="@color/light_gray_2"
         tools:text="Movie title" />
 
+    <ImageView
+        android:id="@+id/ivStar"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="5dp"
+        android:layout_below="@id/tvTitle"
+        android:layout_toEndOf="@id/ivPoster"
+        android:src="@drawable/star" />
+
+    <TextView
+        android:id="@+id/tvVoteAverage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_below="@id/tvTitle"
+        android:layout_toEndOf="@id/ivStar"
+        android:tooltipText="Vote average"
+        android:textColor="@color/light_gray_2"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvVoteInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTitle"
+        android:layout_toEndOf="@id/tvVoteAverage"
+        android:tooltipText="/10 (vote count)"
+        android:textColor="@color/light_gray" />
+
     <TextView
         android:id="@+id/tvOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitle"
+        android:layout_below="@+id/tvVoteAverage"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/ivPoster"
         android:textColor="@color/light_gray"
         tools:text="Movie overview" />
