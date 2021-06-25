@@ -1,5 +1,6 @@
 package com.example.flixster;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -10,15 +11,15 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.databinding.ActivityDetailsBinding;
 import com.example.flixster.models.Movie;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.parceler.Parcels;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import okhttp3.Headers;
@@ -28,7 +29,12 @@ public class DetailsActivity extends AppCompatActivity {
     public static final String TAG = "DetailsActivity"; // for printing to logcat
     ImageView ivPoster;
     RatingBar ratingBar;
+    TextView tvVoteAverage;
+    TextView tvVoteInfo;
     TextView tvTitle;
+    TextView tvReleaseDate;
+    Chip chipAdult;
+    ChipGroup cgGenres;
     TextView tvOverview;
     Movie movie;
     ImageView playButton;
@@ -46,15 +52,34 @@ public class DetailsActivity extends AppCompatActivity {
         // Get the components of the activity
         ivPoster = binding.ivPoster;
         ratingBar = binding.ratingBar;
+        tvVoteAverage = binding.tvVoteAverage;
+        tvVoteInfo = binding.tvVoteInfo;
         tvTitle = binding.tvTitle;
+        tvReleaseDate = binding.tvReleaseDate;
+        chipAdult = binding.chipAdult;
+        cgGenres = binding.cgGenres;
         tvOverview = binding.tvOverview;
         playButton = binding.playButton;
 
         // Fill in the movie's details
         movie = Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
         ratingBar.setRating(movie.getVoteAverage().floatValue() / 2.0f);
+        tvVoteAverage.setText(movie.getVoteAverage().toString());
+        tvVoteInfo.setText("/10 (" + movie.getVoteCount().toString() + ")");
         tvTitle.setText(movie.getTitle());
+        chipAdult.setText(movie.getAdult()? "R": "PG");
+        tvReleaseDate.setText(movie.getReleaseDate());
         tvOverview.setText(movie.getOverview());
+
+        // Fill in the chips for the genre chip group
+        for (Integer id: movie.getGenreIds()) {
+            Chip chip = new Chip(this);
+            chip.setText(MainActivity.genreIdToString.get(id));
+            chip.setChipBackgroundColorResource(R.color.light_gray);
+            chip.setChipMinHeight(50);
+            chip.setTextColor(ContextCompat.getColor(context, R.color.dark_gray));
+            cgGenres.addView(chip);
+        }
 
         // If device is in landscape, display backdrop image, otherwise display poster image
         boolean landscape = context.getResources()

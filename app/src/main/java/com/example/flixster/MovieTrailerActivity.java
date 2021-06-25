@@ -1,6 +1,7 @@
 package com.example.flixster;
 import android.os.Bundle;
 import android.util.Log;
+import com.example.flixster.databinding.ActivityMovieTrailerBinding;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -13,13 +14,14 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_trailer);
+        ActivityMovieTrailerBinding binding = ActivityMovieTrailerBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Parse the trailer id from the intent
-        final String trailerId = getIntent().getStringExtra("trailerId"); // ex. "508943"
+        final String trailerId = getIntent().getStringExtra("trailerId"); // ex. "SUXWAEX2jlg"
 
         // Resolve the player view from the layout
-        YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.player);
+        YouTubePlayerView playerView = (YouTubePlayerView) binding.player;
 
         // Initialize the YouTube player with API key stored in secrets.xml
         String key = getString(R.string.youtube_api_key);
@@ -27,9 +29,8 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                                 YouTubePlayer youTubePlayer, boolean b) {
-                // Cue and play the video
-                youTubePlayer.cueVideo(trailerId);
-                youTubePlayer.play();
+                // Load and play
+                youTubePlayer.loadVideo(trailerId);
             }
 
             @Override

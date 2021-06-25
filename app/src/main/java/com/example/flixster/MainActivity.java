@@ -14,12 +14,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import okhttp3.Headers;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity"; // for printing to logcat
+    public static Map<Integer, String> genreIdToString = new HashMap<>();
     List<Movie> movies;
 
     @Override
@@ -42,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         // Set a Layout Manager on the recycler view
         rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
+        // Make a GET request to retrieve the genre ids and names
+        createGenreIdToStringMap();
+
         // Make a GET request to retrieve the now playing movies from the online database
         AsyncHttpClient client = new AsyncHttpClient();
         String key = getString(R.string.moviedb_api_key);
@@ -59,6 +66,36 @@ public class MainActivity extends AppCompatActivity {
 
                     // Notify the adapter that the dataset has changed
                     movieAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    Log.e(TAG, "Hit json exception", e);
+                }
+            }
+
+            /* Handles what happens when the request fails (error code usually 4XX). */
+            @Override
+            public void onFailure(int i, Headers headers, String s, Throwable throwable) {
+                Log.d(TAG, "onFailure");
+            }
+        });
+    }
+
+    public void createGenreIdToStringMap() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url =  "https://api.themoviedb.org/3/genre/movie/list?api_key="
+                + getString(R.string.moviedb_api_key);
+
+        // Make a GET request to retrieve trailer videos of the movie
+        client.get(url, new JsonHttpResponseHandler() {
+
+            /* Handles what happens when the request succeeds (error code 200). */
+            @Override
+            public void onSuccess(int i, Headers headers, JSON json) {
+                try {
+                    JSONArray genres = json.jsonObject.getJSONArray("genres");
+                    for (int j = 0; j < genres.length(); j++) {
+                        JSONObject obj = genres.getJSONObject(j);
+                        genreIdToString.put(obj.getInt("id"), obj.getString("name"));
+                    }
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit json exception", e);
                 }

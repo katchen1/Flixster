@@ -14,6 +14,10 @@ public class Movie {
     String title;
     String overview;
     Double voteAverage;
+    Double voteCount;
+    String releaseDate;
+    Boolean adult;
+    List<Integer> genreIds;
     Integer id;
 
     /* Default constructor. */
@@ -26,7 +30,17 @@ public class Movie {
         title = jsonObject.getString("title");
         overview = jsonObject.getString("overview");
         voteAverage = jsonObject.getDouble("vote_average");
+        voteCount = jsonObject.getDouble("vote_count");
+        releaseDate = jsonObject.getString("release_date");
+        adult = jsonObject.getBoolean("adult");
         id = jsonObject.getInt("id");
+
+        // Convert the genre ids from an JSONArray to an ArrayList
+        genreIds = new ArrayList<>();
+        JSONArray jsonGenreIds = jsonObject.getJSONArray("genre_ids");
+        for (int i = 0; i < jsonGenreIds.length(); i++) {
+            genreIds.add(jsonGenreIds.getInt(i));
+        }
     }
 
     /* Creates a movie list from a JSON movie array. */
@@ -54,14 +68,28 @@ public class Movie {
     }
 
     /* Getter for the movie's overview. */
-    public String getOverview() {
-        return overview;
-    }
+    public String getOverview() { return overview; }
 
     /* Getter for the movie's vote average. */
     public Double getVoteAverage() {
         return voteAverage;
     }
+
+    /* Getter for the movie's vote count. */
+    public Integer getVoteCount() {
+        return voteCount.intValue();
+    }
+
+    /* Getter for the movie's release date. */
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    /* Getter for the movie's genre ids. */
+    public List<Integer> getGenreIds() { return genreIds; }
+
+    /* Getter for the movie's content rating. */
+    public Boolean getAdult() { return adult; }
 
     /* Getter for the movie's id. */
     public Integer getId() { return id; }
