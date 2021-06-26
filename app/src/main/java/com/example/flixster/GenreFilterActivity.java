@@ -23,7 +23,7 @@ public class GenreFilterActivity extends AppCompatActivity {
         // Set content view (apply the view binding library to reduce view boilerplate)
         ActivityGenreFilterBinding binding = ActivityGenreFilterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().setTitle("Movie Details");
+        getSupportActionBar().setTitle("Genre Filter");
 
         // Retrieve the selected genres passed in from the main activity
         selectedGenres = getIntent().getIntegerArrayListExtra("genres");
