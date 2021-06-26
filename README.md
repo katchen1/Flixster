@@ -32,8 +32,8 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='walkthroughs/walkthrough-final-portrait.gif' title='Video Walkthrough (Portrait)' width='' alt='Video Walkthrough (Portrait)' />
-<img src='walkthroughs/walkthrough-final-landscape.gif' title='Video Walkthrough (Landscape)' width='' alt='Video Walkthrough (Landscape)' />
+<img src='walkthroughs/walkthrough-submission-portrait.gif' title='Video Walkthrough (Portrait)' width='' alt='Video Walkthrough (Portrait)' />
+<img src='walkthroughs/walkthrough-submission-landscape.gif' title='Video Walkthrough (Landscape)' width='' alt='Video Walkthrough (Landscape)' />
 
 GIF created with [Kap](https://getkap.co/).
 
