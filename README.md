@@ -2,7 +2,7 @@
 
 **Flixster** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
 
-Time spent: **10** hours spent in total
+Time spent: **15** hours spent in total
 
 ## User Stories
 
@@ -25,8 +25,8 @@ The following **stretch** features are implemented:
 The following **additional** features are implemented:
 
 * [x] Display additional movie info: genre tags, release date, vote count, and content rating
-* [x] User can filter movies by genre
-* [x] User can sort movies by rating
+* [x] User can filter movies by genre with a checklist
+* [x] User can sort movies by rating by toggling a switch
 
 ## Video Walkthrough
 
@@ -49,9 +49,9 @@ GIF created with [Kap](https://getkap.co/).
 
 6/25
 * Added "now playing" title
-* Filter by genre
-* Sort by rating
-* Clean code
+* Implemented filter by genre
+* Implemented sort by rating
+* Cleaned code
 
 ## Open-source libraries used
 
