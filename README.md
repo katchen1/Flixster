@@ -2,7 +2,7 @@
 
 **Flixster** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
 
-Time spent: **4** hours spent in total
+Time spent: **10** hours spent in total
 
 ## User Stories
 
@@ -24,20 +24,34 @@ The following **stretch** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
+* [x] Display additional movie info: genre tags, release date, vote count, and content rating
+* [x] User can filter movies by genre
+* [x] User can sort movies by rating
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='walkthroughs/walkthrough-bonus-portrait.gif' title='Video Walkthrough (Portrait)' width='' alt='Video Walkthrough (Portrait)' />
-<img src='walkthroughs/walkthrough-bonus-landscape.gif' title='Video Walkthrough (Landscape)' width='' alt='Video Walkthrough (Landscape)' />
+<img src='walkthroughs/walkthrough-final-portrait.gif' title='Video Walkthrough (Portrait)' width='' alt='Video Walkthrough (Portrait)' />
+<img src='walkthroughs/walkthrough-final-landscape.gif' title='Video Walkthrough (Landscape)' width='' alt='Video Walkthrough (Landscape)' />
 
 GIF created with [Kap](https://getkap.co/).
 
 ## Notes
+6/23
+* Finished required stories
+* Started working on bonus stories (improving styling/coloring, rounded corners, and activity binding)
 
-Describe any challenges encountered while building the app.
+6/24
+* Implemented YouTube trailer feature
+* Added movie info (content rating, release date, vote count, genres)
+* Genre ids are mapped to their names via API call to GET /genre/movie/list
+
+6/25
+* Added "now playing" title
+* Filter by genre
+* Sort by rating
+* Clean code
 
 ## Open-source libraries used
 
