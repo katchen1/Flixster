@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/dark_gray"
     android:padding="5dp"
     tools:context=".DetailsActivity">
@@ -14,12 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:onClick="trailerOnClick"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"/>
 
     <ImageView
         android:id="@+id/playButton"
@@ -29,107 +27,107 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="73dp"
         android:onClick="trailerOnClick"
-        android:src="@drawable/play_overlay" />
+        android:src="@drawable/play_overlay"/>
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/ivPoster"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/ivPoster"
+        android:layout_marginBottom="-10dp"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:layout_marginBottom="-10dp"
         android:textColor="@color/light_gray_2"
-        tools:text="Movie title" />
+        tools:text="Movie title"/>
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chipAdult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/ivPoster"
         android:layout_below="@+id/tvTitle"
         android:layout_marginStart="5dp"
         app:chipMinHeight="20dp"
-        android:layout_toEndOf="@+id/ivPoster"
         app:chipBackgroundColor="@color/light_gray"
         android:textColor="@color/dark_gray"
-        tools:text="PG" />
+        tools:text="PG"/>
 
     <TextView
         android:id="@+id/tvReleaseDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/chipAdult"
         android:layout_below="@+id/tvTitle"
         android:layout_margin="5dp"
         android:paddingTop="7dp"
-        android:layout_toEndOf="@+id/chipAdult"
         android:textSize="16sp"
         android:textColor="@color/light_gray"
-        tools:text="Release date" />
+        tools:text="Release date"/>
 
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/ivPoster"
         android:layout_below="@id/chipAdult"
         android:layout_marginStart="5dp"
-        android:layout_toEndOf="@id/ivPoster"
+        android:layout_marginTop="-10dp"
+        android:layout_marginBottom="-25dp"
         android:scaleX="0.7"
         android:scaleY="0.7"
         android:transformPivotX="0dp"
         android:transformPivotY="0dp"
-        android:layout_marginTop="-10dp"
-        android:layout_marginBottom="-25dp"
         android:numStars="5"
         android:rating="0"
         android:stepSize="0.1"
-        android:isIndicator="true" />
+        android:isIndicator="true"/>
 
     <TextView
         android:id="@+id/tvVoteAverage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ratingBar"
         android:layout_toEndOf="@id/ivPoster"
+        android:layout_below="@id/ratingBar"
         android:layout_marginStart="7dp"
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/light_gray_2"
-        tools:text="Vote count" />
+        tools:text="Vote count"/>
 
     <TextView
         android:id="@+id/tvVoteInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ratingBar"
         android:layout_toEndOf="@id/tvVoteAverage"
-        android:paddingTop="4dp"
+        android:layout_below="@id/ratingBar"
         android:layout_marginStart="5dp"
+        android:paddingTop="4dp"
         android:textSize="16sp"
         android:textColor="@color/light_gray"
-        tools:text="Vote count" />
+        tools:text="Vote count"/>
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/cgGenres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ivPoster"
         android:layout_alignParentStart="true"
+        android:layout_below="@id/ivPoster"
         android:layout_marginStart="5dp"
         android:layout_marginTop="-10dp"
         android:layout_marginBottom="-10dp"
         app:chipSpacingVertical="-20dp"
-        android:layout_toEndOf="@id/ivPoster" />
+        android:layout_toEndOf="@id/ivPoster"/>
 
     <TextView
         android:id="@+id/tvOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/cgGenres"
         android:layout_marginStart="5dp"
-        android:layout_alignParentStart="true"
         android:textColor="@color/light_gray"
         android:textSize="16sp"
-        tools:text="Movie overview" />
+        tools:text="Movie overview"/>
 </RelativeLayout>

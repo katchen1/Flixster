@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/dark_gray"
     android:paddingHorizontal="5dp"
     android:paddingVertical="10dp"
+    android:background="@color/dark_gray"
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
@@ -13,61 +13,59 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"/>
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/ivPoster"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/ivPoster"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/light_gray_2"
-        tools:text="Movie title" />
+        tools:text="Movie title"/>
 
     <ImageView
         android:id="@+id/ivStar"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginStart="5dp"
-        android:layout_below="@id/tvTitle"
         android:layout_toEndOf="@id/ivPoster"
-        android:src="@drawable/star" />
+        android:layout_below="@id/tvTitle"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/star"/>
 
     <TextView
         android:id="@+id/tvVoteAverage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@id/tvTitle"
         android:layout_toEndOf="@id/ivStar"
-        android:tooltipText="Vote average"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginStart="5dp"
         android:textColor="@color/light_gray_2"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:tooltipText="Vote average"/>
 
     <TextView
         android:id="@+id/tvVoteInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvTitle"
         android:layout_toEndOf="@id/tvVoteAverage"
-        android:tooltipText="/10 (vote count)"
-        android:textColor="@color/light_gray" />
+        android:layout_below="@id/tvTitle"
+        android:textColor="@color/light_gray"
+        android:tooltipText="/10 (vote count)"/>
 
     <TextView
         android:id="@+id/tvOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/ivPoster"
         android:layout_below="@+id/tvVoteAverage"
         android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/ivPoster"
         android:textColor="@color/light_gray"
-        tools:text="Movie overview" />
+        tools:text="Movie overview"/>
 </RelativeLayout>

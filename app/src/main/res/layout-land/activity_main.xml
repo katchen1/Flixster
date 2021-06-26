@@ -9,58 +9,56 @@
 
     <TextView
         android:id="@+id/tvNowPlaying"
-        android:layout_marginStart="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:text="Now Playing"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="6dp"
+        android:text="Now Playing"
         android:textStyle="bold"
         android:textColor="@color/light_gray_2"
-        android:textSize="26sp" />
+        android:textSize="26sp"/>
 
     <TextView
         android:id="@+id/tvSortRating"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@id/switchSortRating"
-        android:paddingTop="13dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/light_gray"
-        android:text="Sort by Rating" />
+        android:layout_toStartOf="@id/switchSortRating"
+        android:layout_alignParentTop="true"
+        android:paddingTop="13dp"
+        android:text="Sort by Rating"
+        android:textColor="@color/light_gray"/>
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchSortRating"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="sortRatingOnClick" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="5dp"
+        android:onClick="sortRatingOnClick"/>
 
     <Button
         android:id="@+id/btnGenreFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/tvNowPlaying"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:padding="5dp"
         android:text="Genre Filter"
-        android:onClick="genreFilterOnClick"
         android:textSize="14sp"
-        android:backgroundTint="@color/light_gray"
         android:textColor="@color/dark_gray"
         android:textAllCaps="false"
         android:letterSpacing="0"
-        android:padding="5dp"
-        android:layout_alignParentTop="true"
-        android:layout_width="wrap_content"
-        android:layout_toEndOf="@id/tvNowPlaying"
-        android:layout_marginStart="10dp"
-        android:layout_height="wrap_content" />
+        android:backgroundTint="@color/light_gray"
+        android:onClick="genreFilterOnClick"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMovies"
-        android:layout_below="@id/btnGenreFilter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp" />
+        android:layout_below="@id/btnGenreFilter"/>
 </RelativeLayout>

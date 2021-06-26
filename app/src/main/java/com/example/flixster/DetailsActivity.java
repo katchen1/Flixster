@@ -3,15 +3,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
-import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.databinding.ActivityDetailsBinding;
@@ -21,89 +16,55 @@ import com.google.android.material.chip.ChipGroup;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.parceler.Parcels;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import okhttp3.Headers;
 
 public class DetailsActivity extends AppCompatActivity {
 
     public static final String TAG = "DetailsActivity"; // for printing to logcat
-    ImageView ivPoster;
-    RatingBar ratingBar;
-    TextView tvVoteAverage;
-    TextView tvVoteInfo;
-    TextView tvTitle;
-    TextView tvReleaseDate;
-    Chip chipAdult;
-    ChipGroup cgGenres;
-    TextView tvOverview;
-    Movie movie;
-    ImageView playButton;
+    Movie movie; // the movie we are interested in displaying
     Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set content view (apply the view binding library to reduce view boilerplate)
         ActivityDetailsBinding binding = ActivityDetailsBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
         getSupportActionBar().setTitle("Movie Details");
         context = getApplicationContext();
 
-        // Get the components of the activity
-        ivPoster = binding.ivPoster;
-        ratingBar = binding.ratingBar;
-        tvVoteAverage = binding.tvVoteAverage;
-        tvVoteInfo = binding.tvVoteInfo;
-        tvTitle = binding.tvTitle;
-        tvReleaseDate = binding.tvReleaseDate;
-        chipAdult = binding.chipAdult;
-        cgGenres = binding.cgGenres;
-        tvOverview = binding.tvOverview;
-        playButton = binding.playButton;
-
         // Fill in the movie's details
         movie = Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
-        ratingBar.setRating(movie.getVoteAverage().floatValue() / 2.0f);
-        tvVoteAverage.setText(movie.getVoteAverage().toString());
-        tvVoteInfo.setText("/10 (" + movie.getVoteCount().toString() + ")");
-        tvTitle.setText(movie.getTitle());
-        chipAdult.setText(movie.getAdult()? "R": "PG");
-        tvReleaseDate.setText(movie.getReleaseDate());
-        tvOverview.setText(movie.getOverview());
+        Movie.displayMoviePoster(movie, context, binding.ivPoster);
+        binding.chipAdult.setText(movie.getAdult()? "R": "PG");
+        binding.ratingBar.setRating(movie.getVoteAverage().floatValue() / 2.0f);
+        binding.tvOverview.setText(movie.getOverview());
+        binding.tvReleaseDate.setText(movie.getReleaseDate());
+        binding.tvTitle.setText(movie.getTitle());
+        binding.tvVoteAverage.setText(movie.getVoteAverage().toString());
+        binding.tvVoteInfo.setText("/10 (" + movie.getVoteCount().toString() + ")");
 
-        // Fill in the chips for the genre chip group
+        // Fill in genres chip group
+        ChipGroup cgGenres = binding.cgGenres;
         for (Integer id: movie.getGenreIds()) {
             Chip chip = new Chip(this);
             chip.setText(MainActivity.genreIdToString.get(id));
-            chip.setChipBackgroundColorResource(R.color.light_gray);
             chip.setChipMinHeight(50);
+            chip.setChipBackgroundColorResource(R.color.light_gray);
             chip.setTextColor(ContextCompat.getColor(context, R.color.dark_gray));
             cgGenres.addView(chip);
         }
-
-        // If device is in landscape, display backdrop image, otherwise display poster image
-        boolean landscape = context.getResources()
-                .getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-        String imageUrl = landscape? movie.getBackdropPath() : movie.getPosterPath();
-        int placeHolder = landscape?
-                R.drawable.flicks_backdrop_placeholder : R.drawable.flicks_movie_placeholder;
-        Glide.with(context)
-                .load(imageUrl)
-                .transform(new RoundedCornersTransformation(30, 10))
-                .placeholder(placeHolder)
-                .into(ivPoster);
     }
 
     /* Launches the trailer video when the poster or backdrop image is tapped.
      * Shows a toast if there are no trailer videos for the movie. */
     public void trailerOnClick(View view) {
-        String movieId = movie.getId().toString();
-        AsyncHttpClient client = new AsyncHttpClient();
-        String url =  "https://api.themoviedb.org/3/movie/" + movieId
+        String url =  "https://api.themoviedb.org/3/movie/" + movie.getId()
                 + "/videos?api_key=" + getString(R.string.moviedb_api_key);
 
         // Make a GET request to retrieve trailer videos of the movie
-        client.get(url, new JsonHttpResponseHandler() {
+        new AsyncHttpClient().get(url, new JsonHttpResponseHandler() {
 
             /* Handles what happens when the request succeeds (error code 200). */
             @Override
@@ -112,23 +73,22 @@ public class DetailsActivity extends AppCompatActivity {
                     JSONArray results = json.jsonObject.getJSONArray("results");
                     String trailerId = "";
 
-                    // Filter: only consider videos from YouTube
+                    // Consider the first video from YouTube
                     for (int j = 0; j < results.length(); j++) {
                         String site = results.getJSONObject(j).getString("site");
                         if (site.equals("YouTube")) {
                             trailerId = results.getJSONObject(j).getString("key");
+                            break;
                         }
                     }
 
-                    // Ignore taps for movies with no YouTube trailer videos
-                    if (trailerId.isEmpty()) {
-                        Toast.makeText(context, "No YouTube trailer available", Toast.LENGTH_SHORT).show();
-                    } else {
-                        // Get the first YouTube video in the list and launch an intent to play it
-                        trailerId = results.getJSONObject(0).getString("key");
+                    // If there's a YouTube trailer, launch an intent to play it
+                    if (!trailerId.isEmpty()) {
                         Intent intent = new Intent(context, MovieTrailerActivity.class);
                         intent.putExtra("trailerId", trailerId);
                         startActivity(intent);
+                    } else {
+                        Toast.makeText(context, "No YouTube trailer available", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit json exception", e);

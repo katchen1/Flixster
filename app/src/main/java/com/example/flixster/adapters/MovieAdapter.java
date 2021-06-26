@@ -1,8 +1,6 @@
 package com.example.flixster.adapters;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import com.example.flixster.DetailsActivity;
-import com.example.flixster.R;
 import com.example.flixster.databinding.ItemMovieBinding;
 import com.example.flixster.models.Movie;
 import org.parceler.Parcels;
 import java.util.List;
-
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /* Responsible for displaying data from the model into a row in the recycler view. */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
@@ -79,18 +73,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvOverview.setText(movie.getOverview());
             tvVoteAverage.setText(movie.getVoteAverage().toString());
             tvVoteInfo.setText("/10 (" + movie.getVoteCount() + ")");
-
-            // If device is in landscape, display backdrop image, otherwise display poster image
-            boolean landscape = context.getResources()
-                    .getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-            String imageUrl = landscape? movie.getBackdropPath() : movie.getPosterPath();
-            int placeHolder = landscape?
-                    R.drawable.flicks_backdrop_placeholder : R.drawable.flicks_movie_placeholder;
-            Glide.with(context)
-                    .load(imageUrl)
-                    .transform(new RoundedCornersTransformation(30, 10))
-                    .placeholder(placeHolder)
-                    .into(ivPoster);
+            Movie.displayMoviePoster(movie, context, ivPoster);
         }
 
         /* Displays a new activity via an Intent when the user clicks on a row. */
