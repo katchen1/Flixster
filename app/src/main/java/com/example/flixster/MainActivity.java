@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Notify the adapter that the dataset has changed
             movieAdapter.notifyDataSetChanged();
+            sortRatingOnClick(switchSortRating);
             Toast.makeText(getApplicationContext(), "Genres updated successfully", Toast.LENGTH_SHORT).show();
         } else {
             Log.w(TAG, "Unknown call to onActivityResult");
